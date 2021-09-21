@@ -285,4 +285,11 @@ public class Trade {
 	public void setBigDecimals(List<BigDecimal> bigDecimals) {
 		this.bigDecimals = bigDecimals;
 	}
+
+	public void deleteByAge(int age) {
+
+	}
+
+
+
 }

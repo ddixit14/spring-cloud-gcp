@@ -65,8 +65,10 @@ public class PartTreeSpannerQuery<T> extends AbstractSpannerQuery<T> {
 					this.spannerMappingContext);
 		}
 		if (this.tree.isDelete()) {
-			return this.spannerTemplate
-					.performReadWriteTransaction(getDeleteFunction(parameters));
+
+			getDeleteFunction(parameters).apply(spannerTemplate);
+//			return this.spannerTemplate
+//					.performReadWriteTransaction(getDeleteFunction(parameters));
 		}
 		return SpannerStatementQueryExecutor.executeQuery(this.entityType, this.tree,
 				paramAccessor, getQueryMethod().getMethod().getParameters(), this.spannerTemplate,

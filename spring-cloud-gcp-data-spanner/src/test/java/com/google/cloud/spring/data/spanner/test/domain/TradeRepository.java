@@ -127,4 +127,6 @@ public interface TradeRepository extends SpannerRepository<Trade, Key> {
 
 	@NonNull
 	Trade getByAction(String s);
+
+	void deleteByAge(int age);
 }

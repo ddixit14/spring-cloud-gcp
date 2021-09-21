@@ -533,6 +533,14 @@ public class SpannerRepositoryIntegrationTests extends AbstractSpannerIntegratio
 		assertThat(this.tradeRepository.count()).isZero();
 	}
 
+	@Test
+	public void testDeleteTransactionByAge() {
+		this.tradeRepositoryTransactionalService.testDeletingTransaction();
+		//assertThat(this.tradeRepository.count()).isEqualTo(1L);
+
+	}
+
+
 	private List<Trade> insertTrades(String traderId, String action, int numTrades) {
 		List<Trade> trades = new ArrayList<>();
 		for (int i = 0; i < numTrades; i++) {
@@ -552,6 +560,7 @@ public class SpannerRepositoryIntegrationTests extends AbstractSpannerIntegratio
 	/**
 	 * A service that executes methods annotated as transactional.
 	 */
+
 	public static class TradeRepositoryTransactionalService {
 
 		@Autowired
@@ -571,6 +580,13 @@ public class SpannerRepositoryIntegrationTests extends AbstractSpannerIntegratio
 			Trade trade = Trade.aTrade();
 			this.tradeRepository.save(trade);
 			throw new RuntimeException("Intentional error to rollback save.");
+		}
+
+		@Transactional
+		public void testDeletingTransaction() {
+			this.tradeRepository.deleteByAge(5);
+
+			//this.tradeRepository.deleteAll();
 		}
 	}
 }
